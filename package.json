@@ -1,0 +1,9 @@
+{
+  "name": "surveasy-server",
+  "version": "0.1.0",
+  "description": "Backend for surveasy",
+  "main": "server.js",
+  "repository": "https://github.com/Rem113/surveasy-server.git",
+  "author": "Hillel Saal",
+  "license": "MIT"
+}
