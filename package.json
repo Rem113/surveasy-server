@@ -2,8 +2,18 @@
   "name": "surveasy-server",
   "version": "0.1.0",
   "description": "Backend for surveasy",
-  "main": "server.js",
+  "main": "dist/server.js",
   "repository": "https://github.com/Rem113/surveasy-server.git",
   "author": "Hillel Saal",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "start": "rm -rf dist && tsc && node dist/server"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "typescript": "^4.0.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.8"
+  }
 }
