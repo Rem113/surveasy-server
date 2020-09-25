@@ -7,13 +7,19 @@
   "author": "Hillel Saal",
   "license": "MIT",
   "scripts": {
-    "start": "rm -rf dist && tsc && node dist/server"
+    "start": "ts-node src/server.ts",
+    "dev": "nodemon"
   },
   "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "typescript": "^4.0.2"
   },
   "devDependencies": {
-    "@types/express": "^4.17.8"
+    "@types/cors": "^2.8.7",
+    "@types/express": "^4.17.8",
+    "nodemon": "^2.0.4",
+    "ts-node": "^9.0.0"
   }
 }
