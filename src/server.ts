@@ -1,16 +1,17 @@
 import express from "express"
-import bodyParser from "body-parser"
-import cors from "cors"
 
-import authRoutes from "./routes/auth"
+import expressPlugin from "./plugins/express"
+import mongoosePlugin from "./plugins/mongoose"
 
 const port = process.env.PORT || 5000
-const app = express()
 
-app.use(cors())
-app.use(express.urlencoded({ extended: false }))
-app.use(bodyParser.json())
+const main = () => {
+  const app = express()
 
-app.use("/v1/auth", authRoutes)
+  expressPlugin(app)
+  mongoosePlugin()
 
-app.listen(port, () => console.log(`Listening on port ${port}!`))
+  app.listen(port, () => console.log(`Listening on port ${port}!`))
+}
+
+main()
