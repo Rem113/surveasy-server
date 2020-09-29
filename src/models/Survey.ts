@@ -9,7 +9,6 @@ import {
 } from "./Question"
 
 const SurveySchema = new Schema({
-  answerCount: { type: Number, default: 0 },
   postedAt: { type: Date, default: Date.now },
   postedBy: { type: String, required: true },
   questions: [QuestionSchema],

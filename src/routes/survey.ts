@@ -15,18 +15,13 @@ router.post("/", async (req, res) => {
     return res.status(400).end("Please specify at least one question")
   }
 
-  const survey = new Survey({
+  const survey = await Survey.create({
     postedBy,
     questions,
+    until,
   })
 
-  try {
-    await survey.validate()
-  } catch (err) {
-    return res.status(400).end("Invalid question format")
-  }
-
-  return res.status(201).json(await survey.save())
+  return res.status(201).json(survey)
 })
 
 export default router

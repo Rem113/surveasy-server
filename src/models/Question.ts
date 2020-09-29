@@ -1,14 +1,12 @@
 import { Schema, Document } from "mongoose"
 
 interface IRatingQuestion extends IQuestion {
-  answer: Number
   min: Number
   max: Number
 }
 
 const RatingQuestionSchema = new Schema(
   {
-    answer: { type: Number, required: true },
     min: { type: Number, required: true },
     max: { type: Number, required: true },
   },
@@ -18,7 +16,7 @@ const RatingQuestionSchema = new Schema(
 )
 
 RatingQuestionSchema.pre<IRatingQuestion>("validate", function (next) {
-  if (this.answer > this.max || this.answer < this.min) {
+  if (this.min > this.max) {
     next(new Error("Answer must be between min and max"))
   } else {
     next()
@@ -27,13 +25,11 @@ RatingQuestionSchema.pre<IRatingQuestion>("validate", function (next) {
 
 interface IAnswer extends Document {
   text: String
-  selected: Boolean
 }
 
 const AnswerSchema = new Schema(
   {
     text: { type: String, required: true },
-    selected: { type: Boolean, default: false },
   },
   { _id: false }
 )
@@ -44,14 +40,7 @@ interface IMultiQuestion extends IQuestion {
 
 const MultiQuestionSchema = new Schema(
   {
-    answers: {
-      type: [AnswerSchema],
-      validate: {
-        validator: (answers: IAnswer[]) =>
-          answers.filter((answer) => answer.selected).length > 0,
-        message: "You have to select at least one answer",
-      },
-    },
+    answers: [AnswerSchema],
   },
   {
     _id: false,
@@ -64,14 +53,7 @@ interface IExclusiveQuestion extends IQuestion {
 
 const ExclusiveQuestionSchema = new Schema(
   {
-    answers: {
-      type: [AnswerSchema],
-      validate: {
-        validator: (answers: IAnswer[]) =>
-          answers.filter((answer) => answer.selected).length === 1,
-        message: "You have to select exactly one answer",
-      },
-    },
+    answers: [AnswerSchema],
   },
   {
     _id: false,
