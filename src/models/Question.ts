@@ -5,15 +5,10 @@ interface IRatingQuestion extends IQuestion {
   max: Number
 }
 
-const RatingQuestionSchema = new Schema(
-  {
-    min: { type: Number, required: true },
-    max: { type: Number, required: true },
-  },
-  {
-    _id: false,
-  }
-)
+const RatingQuestionSchema = new Schema({
+  min: { type: Number, required: true },
+  max: { type: Number, required: true },
+})
 
 RatingQuestionSchema.pre<IRatingQuestion>("validate", function (next) {
   if (this.min > this.max) {
@@ -24,54 +19,34 @@ RatingQuestionSchema.pre<IRatingQuestion>("validate", function (next) {
 })
 
 interface IAnswer extends Document {
-  text: String
+  answer: String
 }
 
-const AnswerSchema = new Schema(
-  {
-    text: { type: String, required: true },
-  },
-  { _id: false }
-)
+const AnswerSchema = new Schema({
+  answer: { type: String, required: true },
+})
 
 interface IMultiQuestion extends IQuestion {
   answers: IAnswer[]
 }
 
-const MultiQuestionSchema = new Schema(
-  {
-    answers: [AnswerSchema],
-  },
-  {
-    _id: false,
-  }
-)
+const MultiQuestionSchema = new Schema({
+  answers: [AnswerSchema],
+})
 
 interface IExclusiveQuestion extends IQuestion {
   answers: IAnswer[]
 }
 
-const ExclusiveQuestionSchema = new Schema(
-  {
-    answers: [AnswerSchema],
-  },
-  {
-    _id: false,
-  }
-)
+const ExclusiveQuestionSchema = new Schema({
+  answers: [AnswerSchema],
+})
 
 interface IBinaryQuestion extends IQuestion {
   answer: Boolean
 }
 
-const BinaryQuestionSchema = new Schema(
-  {
-    answer: { type: Boolean, required: true },
-  },
-  {
-    _id: false,
-  }
-)
+const BinaryQuestionSchema = new Schema({})
 
 interface IQuestion extends Document {
   question: String
@@ -83,7 +58,6 @@ const QuestionSchema = new Schema(
     question: { type: String, required: true },
   },
   {
-    _id: false,
     discriminatorKey: "kind",
   }
 )
